@@ -9,12 +9,12 @@ public class Person {
     private String FIRST_NAME;
     private String LAST_NAME;
     private String MOBILE;
-    private String BIRTHDAY;
+    private Date BIRTHDAY;
     private int HOME_ID;
 
     public Person() {}
 
-    public Person(int ID, String FIRST_NAME, String LAST_NAME, String MOBILE, String BIRTHDAY, int HOME_ID) {
+    public Person(int ID, String FIRST_NAME, String LAST_NAME, String MOBILE, Date BIRTHDAY, int HOME_ID) {
         this.ID = ID;
         this.FIRST_NAME = FIRST_NAME;
         this.LAST_NAME = LAST_NAME;
@@ -47,10 +47,6 @@ public class Person {
         this.LAST_NAME = LAST_NAME;
     }
 
-    public String getBIRTHDAY() {
-        return BIRTHDAY;
-    }
-
     public String getMOBILE() { return MOBILE; }
 
     public void setMOBILE(String MOBILE) { this.MOBILE = MOBILE; }
@@ -59,7 +55,9 @@ public class Person {
 
     public void setHOME_ID(int HOME_ID) { this.HOME_ID = HOME_ID; }
 
-    public void setBIRTHDAY(String BIRTHDAY) {
+    public Date getBIRTHDAY() { return BIRTHDAY; }
+
+    public void setBIRTHDAY(Date BIRTHDAY) {
         this.BIRTHDAY = BIRTHDAY;
     }
 

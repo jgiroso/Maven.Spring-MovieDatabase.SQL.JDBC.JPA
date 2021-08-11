@@ -13,7 +13,7 @@ public class PersonMapper implements RowMapper<Person> {
             person.setID(resultSet.getInt("id"));
             person.setFIRST_NAME(resultSet.getString("first_name"));
             person.setLAST_NAME(resultSet.getString("last_name"));
-            person.setBIRTHDAY(resultSet.getString("birthday"));
+            person.setBIRTHDAY(resultSet.getDate("birthday"));
             return person;
 
     }

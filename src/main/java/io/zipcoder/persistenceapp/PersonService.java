@@ -23,13 +23,14 @@ public class PersonService {
     }
 
     public void save(Person person) {
-//        String sql = "insert into person (first_name, last_name, mobile, birthday) " +
+//        String sql = "insert into person (FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY) " +
 //                "values (" + person.getFIRST_NAME() +
 //                ", " + person.getLAST_NAME() +
 //                ", " + person.getMOBILE() +
 //                ", " + person.getBIRTHDAY() +
 //                ");";
-        jdbcTemplate.update("INSERT INTO person (first_name, last_name, mobile, birthday) VALUES (?, ?, ?, ?)", new Object[] {person.getFIRST_NAME(), person.getLAST_NAME(), person.getMOBILE(), person.getBIRTHDAY()});
+        String sql = "INSERT INTO person (first_name, last_name, mobile, birthday) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, person.getFIRST_NAME(), person.getLAST_NAME(), person.getMOBILE(), person.getBIRTHDAY().toString());
         //jdbcTemplate.update(sql, );
     }
 
@@ -50,9 +51,15 @@ public class PersonService {
 //                new Object[] { person.getID(), person.getFIRST_NAME(), person.getLAST_NAME(), person.getBIRTHDAY() });
 //    }
 //
-    public int update(Person person) {
-        return jdbcTemplate.update("update person " + " set first_name = ?, last_name = ?, birthday = ? " + " where id = ?",
-                new Object[] { person.getFIRST_NAME(), person.getLAST_NAME(), person.getBIRTHDAY(), person.getID() });
+    public int update(int id, Person person) {
+        String sql = "UPDATE PERSON" +
+                " SET FIRST_NAME = " + person.getFIRST_NAME() +
+                ", LAST_NAME = " + person.getLAST_NAME() +
+                ", MOBILE = " + person.getMOBILE() +
+                ", BIRTHDAY = " + person.getBIRTHDAY() +
+                " WHERE ID = " + id +
+                ";";
+        return jdbcTemplate.update(sql);
     }
 
     public List<Person> findAllDistinctLastNames() {
@@ -61,7 +68,7 @@ public class PersonService {
     }
 
     public List<Person> findAllByLastName(String LAST_NAME) {
-        String sql = "select * from person where LAST_NAME=" + LAST_NAME;
+        String sql = "select * from person where LAST_NAME = '" + LAST_NAME + "'";
         return jdbcTemplate.query(sql, new PersonMapper());
     }
 

@@ -37,4 +37,6 @@ DELETE FROM MOVIES
     WHERE rating = 'R';
 
 INSERT INTO PERSON (FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY)
-VALUES('Jen', 'Giroso', '302', null);
+VALUES ('Jen', 'Giroso', '302', null),
+('Jeremy', 'Douglas', '302', null),
+('James', 'Douglas', '302', null);
