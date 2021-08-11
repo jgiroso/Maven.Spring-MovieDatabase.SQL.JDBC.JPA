@@ -29,6 +29,11 @@ public class PersonController {
         return new ResponseEntity<>(personService.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/people/surname")
+    public ResponseEntity<Iterable<Person>> getSurnames() {
+        return new ResponseEntity<>(personService.findAllDistinctLastNames(), HttpStatus.OK);
+    }
+
     @GetMapping("/people/surname/{lastName}")
     public ResponseEntity<Iterable<Person>> findAllByLastName(@PathVariable String lastName) {
         return new ResponseEntity<>(personService.findAllByLastName(lastName), HttpStatus.OK);

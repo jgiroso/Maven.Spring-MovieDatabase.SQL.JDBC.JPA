@@ -23,15 +23,13 @@ public class PersonService {
     }
 
     public void save(Person person) {
-//        String sql = "insert into person (FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY) " +
-//                "values (" + person.getFIRST_NAME() +
-//                ", " + person.getLAST_NAME() +
-//                ", " + person.getMOBILE() +
-//                ", " + person.getBIRTHDAY() +
-//                ");";
-        String sql = "INSERT INTO person (first_name, last_name, mobile, birthday) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, person.getFIRST_NAME(), person.getLAST_NAME(), person.getMOBILE(), person.getBIRTHDAY().toString());
-        //jdbcTemplate.update(sql, );
+        String sql = "insert into person (FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY) " +
+                "values ('" + person.getFIRST_NAME() +
+                "', '" + person.getLAST_NAME() +
+                "', '" + person.getMOBILE() +
+                "', " + person.getBIRTHDAY() +
+                ");";
+        jdbcTemplate.update(sql);
     }
 
     public Person findById(int id) {
@@ -53,10 +51,10 @@ public class PersonService {
 //
     public int update(int id, Person person) {
         String sql = "UPDATE PERSON" +
-                " SET FIRST_NAME = " + person.getFIRST_NAME() +
-                ", LAST_NAME = " + person.getLAST_NAME() +
-                ", MOBILE = " + person.getMOBILE() +
-                ", BIRTHDAY = " + person.getBIRTHDAY() +
+                " SET FIRST_NAME = '" + person.getFIRST_NAME() +
+                "', LAST_NAME = '" + person.getLAST_NAME() +
+                "', MOBILE = '" + person.getMOBILE() +
+                "', BIRTHDAY = " + person.getBIRTHDAY() +
                 " WHERE ID = " + id +
                 ";";
         return jdbcTemplate.update(sql);
