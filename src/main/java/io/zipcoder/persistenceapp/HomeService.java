@@ -12,6 +12,7 @@ public class HomeService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+
     public HomeService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -33,10 +34,12 @@ public class HomeService {
         return jdbcTemplate.update(sql);
     }
 
-    public int deleteById(int id) {
+    public Home deleteById(int id) {
         String stringID = String.valueOf(id);
+        Home home = findById(id);
         String sql = "delete from home where id = ?";
-        return jdbcTemplate.update(sql, id);
+        jdbcTemplate.update(sql, id);
+        return home;
     }
 
     public List<Home> deleteListOfHomes(List<Home> homes) {
@@ -72,5 +75,16 @@ public class HomeService {
     public Home findByHomeNumber(String homeNumber) {
         String sql = "select * from home where homenumber = " + homeNumber;
         return (Home) jdbcTemplate.queryForObject(sql, new HomeMapper());
+    }
+
+    public Home findByPersonId(Person person) {
+        String id = String.valueOf(person.getHOME_ID());
+        String sql = "select * from home where id = " + id;
+        return (Home) jdbcTemplate.queryForObject(sql, new HomeMapper());
+    }
+
+    public List<Person> findPeopleByHome(int id) {
+        String sql = "select * from person where home_id = " + id;
+        return jdbcTemplate.query(sql, new PersonMapper());
     }
 }
