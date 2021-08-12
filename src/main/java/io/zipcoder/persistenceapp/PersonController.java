@@ -39,6 +39,11 @@ public class PersonController {
         return new ResponseEntity<>(personService.findAllByLastName(lastName), HttpStatus.OK);
     }
 
+    @GetMapping("/people/firstname/stats")
+    public ResponseEntity<Integer> findNumberOfFirstNameOccurrances() {
+        return new ResponseEntity<>(personService.findFirstNameFrequency(), HttpStatus.OK);
+    }
+
     @PutMapping("/people/{id}")
     public ResponseEntity<Person> updatePerson(@PathVariable int id, @RequestBody Person person) {
         personService.update(id, person);

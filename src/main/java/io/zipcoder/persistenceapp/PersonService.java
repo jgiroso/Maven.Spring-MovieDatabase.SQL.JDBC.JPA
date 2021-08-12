@@ -17,6 +17,9 @@ public class PersonService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    public PersonService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<Person> findAll() {
         return jdbcTemplate.query("select * from person", new PersonMapper());
@@ -38,17 +41,18 @@ public class PersonService {
         return jdbcTemplate.queryForObject(sql, new PersonMapper());
     }
 
+    public Integer findFirstNameFrequency(){
+        String sql = "select FIRST_NAME, count(FIRST_NAME) from person group by FIRST_NAME";
+        List<Person> firstNameList = jdbcTemplate.query(sql, new PersonMapper());
+        return firstNameList.size();
+    }
+
     public int deleteById(int id) {
         String stringID = String.valueOf(id);
         String sql = "delete from person where id=" + stringID;
         return jdbcTemplate.update(sql, new Object[] { id });
     }
 
-//    public int insert(Person person) {
-//        return jdbcTemplate.update("insert into person (id, name, passport_number) " + "values(?,  ?, ?)",
-//                new Object[] { person.getID(), person.getFIRST_NAME(), person.getLAST_NAME(), person.getBIRTHDAY() });
-//    }
-//
     public int update(int id, Person person) {
         String sql = "UPDATE PERSON" +
                 " SET FIRST_NAME = '" + person.getFIRST_NAME() +
