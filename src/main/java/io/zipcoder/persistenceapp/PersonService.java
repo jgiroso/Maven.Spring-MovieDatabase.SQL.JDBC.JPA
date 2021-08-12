@@ -1,11 +1,9 @@
 package io.zipcoder.persistenceapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,10 +45,12 @@ public class PersonService {
         return firstNameList.size();
     }
 
-    public int deleteById(int id) {
+    public Person deleteById(int id) {
         String stringID = String.valueOf(id);
-        String sql = "delete from person where id=" + stringID;
-        return jdbcTemplate.update(sql, new Object[] { id });
+        String sql = "delete from person where id= ?";
+        Person person = findById(id);
+        jdbcTemplate.update(sql, id);
+        return person;
     }
 
     public int update(int id, Person person) {

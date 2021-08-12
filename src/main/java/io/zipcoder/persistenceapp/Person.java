@@ -1,9 +1,9 @@
 package io.zipcoder.persistenceapp;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
 public class Person {
-
 
     private int ID;
     private String FIRST_NAME;
