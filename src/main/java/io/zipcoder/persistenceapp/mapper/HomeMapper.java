@@ -1,5 +1,6 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.mapper;
 
+import io.zipcoder.persistenceapp.model.Home;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

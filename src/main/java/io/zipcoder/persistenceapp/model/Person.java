@@ -1,33 +1,43 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.model;
 
-import javax.persistence.Entity;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.persistence.*;
+import java.sql.Date;
+
+@Entity
+@Table(name = "PERSON")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person {
 
-    private int ID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID")
+    private Long ID;
     private String FIRST_NAME;
     private String LAST_NAME;
     private String MOBILE;
     private Date BIRTHDAY;
-    private int HOME_ID;
+    @ManyToOne
+//    @JoinColumn(name = "HOME_ID")
+    private Home home;
 
     public Person() {}
 
-    public Person(int ID, String FIRST_NAME, String LAST_NAME, String MOBILE, Date BIRTHDAY, int HOME_ID) {
+    public Person(Long ID, String FIRST_NAME, String LAST_NAME, String MOBILE, Date BIRTHDAY, Home home) {
         this.ID = ID;
         this.FIRST_NAME = FIRST_NAME;
         this.LAST_NAME = LAST_NAME;
         this.MOBILE = MOBILE;
         this.BIRTHDAY = BIRTHDAY;
-        this.HOME_ID = HOME_ID;
+        this.home = home;
     }
 
-    public int getID() {
+    public Long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Long ID) {
         this.ID = ID;
     }
 
@@ -51,9 +61,9 @@ public class Person {
 
     public void setMOBILE(String MOBILE) { this.MOBILE = MOBILE; }
 
-    public int getHOME_ID() { return HOME_ID; }
+    public Home getHome() { return home; }
 
-    public void setHOME_ID(int HOME_ID) { this.HOME_ID = HOME_ID; }
+    public void setHome(Home home) { this.home = home; }
 
     public Date getBIRTHDAY() { return BIRTHDAY; }
 

@@ -1,10 +1,21 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "HOME")
 public class Home {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID")
     Integer ID;
     String ADDRESS;
     String HOMENUMBER;
+    @OneToMany
+    List<Person> personList = new ArrayList<>();
 
     public Home() {}
 

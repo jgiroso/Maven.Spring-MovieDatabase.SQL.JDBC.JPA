@@ -1,5 +1,8 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.controller;
 
+import io.zipcoder.persistenceapp.model.Home;
+import io.zipcoder.persistenceapp.service.HomeService;
+import io.zipcoder.persistenceapp.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

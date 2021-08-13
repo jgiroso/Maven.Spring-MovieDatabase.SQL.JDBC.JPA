@@ -1,5 +1,9 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.service;
 
+import io.zipcoder.persistenceapp.mapper.HomeMapper;
+import io.zipcoder.persistenceapp.mapper.PersonMapper;
+import io.zipcoder.persistenceapp.model.Home;
+import io.zipcoder.persistenceapp.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -78,7 +82,7 @@ public class HomeService {
     }
 
     public Home findByPersonId(Person person) {
-        String id = String.valueOf(person.getHOME_ID());
+        String id = String.valueOf(person.getID());
         String sql = "select * from home where id = " + id;
         return (Home) jdbcTemplate.queryForObject(sql, new HomeMapper());
     }

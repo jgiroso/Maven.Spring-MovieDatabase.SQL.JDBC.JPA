@@ -1,6 +1,7 @@
-package io.zipcoder.persistenceapp;
+package io.zipcoder.persistenceapp.controller;
 
-import com.sun.deploy.net.HttpResponse;
+import io.zipcoder.persistenceapp.model.Person;
+import io.zipcoder.persistenceapp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,8 @@ public class PersonController {
     PersonService personService;
 
     @PostMapping("/create")
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        personService.save(person);
+    public ResponseEntity<?> createPerson(@RequestBody Person person) {
+        this.personService.save(person);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -25,7 +26,7 @@ public class PersonController {
     }
 
     @GetMapping("/people/{id}")
-    public ResponseEntity<Person> getPersonByID(@PathVariable int id) {
+    public ResponseEntity<Person> getPersonByID(@PathVariable Long id) {
         return new ResponseEntity<>(personService.findById(id), HttpStatus.OK);
     }
 
@@ -40,18 +41,19 @@ public class PersonController {
     }
 
     @GetMapping("/people/firstname/stats")
-    public ResponseEntity<Integer> findNumberOfFirstNameOccurrances() {
+    public ResponseEntity<Long> findNumberOfFirstNameOccurrances() {
         return new ResponseEntity<>(personService.findFirstNameFrequency(), HttpStatus.OK);
     }
 
     @PutMapping("/people/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable int id, @RequestBody Person person) {
-        personService.update(id, person);
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person person) {
+        this.personService.update(id, person);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/people/{id}")
-    public ResponseEntity<Person> deletePerson(@PathVariable int id) {
-        return new ResponseEntity<Person>(personService.deleteById(id), HttpStatus.OK);
+    public ResponseEntity<?> deletePerson(@PathVariable Long id) {
+        personService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
