@@ -1,4 +1,4 @@
-package io.zipcoder.persistenceapp.JdbcService;
+package io.zipcoder.persistenceapp.service;
 
 import io.zipcoder.persistenceapp.mapper.PersonMapper;
 import io.zipcoder.persistenceapp.model.Person;
@@ -33,30 +33,30 @@ public class JdbcPersonServiceImpl implements PersonService {
 
     @Override
     public void save(Person person) {
-//        String sql = "insert into person (FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY) " +
-//                "values ('" + person.getFIRST_NAME() +
-//                "', '" + person.getLAST_NAME() +
-//                "', '" + person.getMOBILE() +
-//                "', " + person.getBIRTHDAY() +
-//                ");";
-        PreparedStatementCreator psc = new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                String sql = "insert into person(FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY) values(?,?,?,?)";
-                PreparedStatement ps = connection.prepareStatement(sql);
-//                ps.setInt(1, person.getID());
-                ps.setString(2, person.getFIRST_NAME());
-                ps.setString(3, person.getLAST_NAME());
-                ps.setString(4, person.getMOBILE());
-                ps.setDate(5, person.getBIRTHDAY());
-//                ps.setInt(6, person.getHOME_ID());
-                return ps;
-            }
-        };
+        String sql = "insert into person (FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY) " +
+                "values ('" + person.getFIRST_NAME() +
+                "', '" + person.getLAST_NAME() +
+                "', '" + person.getMOBILE() +
+                "', " + person.getBIRTHDAY() +
+                ");";
+//        PreparedStatementCreator psc = new PreparedStatementCreator() {
+//            @Override
+//            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//                String sql = "insert into person(FIRST_NAME, LAST_NAME, MOBILE, BIRTHDAY) values(?,?,?,?)";
+//                PreparedStatement ps = connection.prepareStatement(sql);
+////                ps.setInt(1, person.getID());
+//                ps.setString(2, person.getFIRST_NAME());
+//                ps.setString(3, person.getLAST_NAME());
+//                ps.setString(4, person.getMOBILE());
+//                ps.setDate(5, person.getBIRTHDAY());
+////                ps.setInt(6, person.getHOME_ID());
+//                return ps;
+//            }
+//        };
 
-        jdbcTemplate.update(psc);
+        jdbcTemplate.update(sql);
     }
-    //("UPDATE tbl_employees SET name = ?, location = ?, department = ? WHERE id = ?", new Object[] {e.getName(), e.getLocation(), e.getDepartment(), id})
+
     @Override
     public Person findById(Long id) {
         String stringID = String.valueOf(id);
